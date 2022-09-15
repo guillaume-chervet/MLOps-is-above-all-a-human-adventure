@@ -158,7 +158,7 @@ def run_example():
 	# load the image
 	img = load_image('sample_image.jpg')
 	# load model
-	model = load_model('final_model.h5')
+	model = load_model('production/model/final_model.h5')
 	# predict the class
 	result = model.predict(img)
 	print(result[0])
