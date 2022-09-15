@@ -39,7 +39,7 @@ for subdir in subdirs:
 seed(1)
 # define ratio of pictures to use for validation
 val_ratio = 0.25
-number_file_limit = 100
+number_file_limit = 100000
 # copy training dataset images into subdirectories
 src_directory = 'dogs-vs-cats/train/'
 for file in listdir(src_directory):
