@@ -9,6 +9,7 @@ from fastapi.exception_handlers import (
     request_validation_exception_handler,
 )
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
@@ -35,6 +36,17 @@ logger = logging.getLogger(__name__)
 logging.configure_module()
 
 app = FastAPI()
+origins = [
+    "http://localhost",
+    "http://localhost:4000",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.add_middleware(RequestContextLogMiddleware)
 
 app_settings = AppSettings(logging)
