@@ -1,5 +1,0 @@
-keras
-numpy
-tensorflow
-Pillow
-opencv-contrib-python-headless==4.6.0.66
