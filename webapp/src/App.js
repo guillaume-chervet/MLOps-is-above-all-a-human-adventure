@@ -19,7 +19,7 @@ function App() {
     const formData = new FormData();
     formData.append("file", file);
 
-    const str = JSON.stringify({version:"1.0.0", "type":"opencv", "youhou":"qsdqsdqsdqsd"});
+    const str = JSON.stringify({version:"1.0.0", "type":type});
     const bytes = new TextEncoder().encode(str);
     const blob = new Blob([bytes], {
       type: "application/json;charset=utf-8"

@@ -13,4 +13,4 @@ class Model:
 		if settings["type"] == "opencv":
 			return self.model_cv.execute(file, filename, settings)
 		else:
-			return self.model_pillow(file, filename, settings)
+			return self.model_pillow.execute(file, filename, settings)
