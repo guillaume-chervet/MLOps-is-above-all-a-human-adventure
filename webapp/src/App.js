@@ -51,6 +51,10 @@ function App() {
 
   const handleType = e => {
     setType(e.target.value);
+    setPrediction(null);
+    setFeedback(null);
+    setFile(null);
+    setUrl(null);
   }
 
   return (
@@ -64,7 +68,7 @@ function App() {
       </select>
     </form>
 
-    { url && <img src={url} alt={"selected image"}  style={{maxWidth: "260px", maxHeight: "260px"}} />}
+    { url && <img src={url} alt={"selected image"}  style={{maxWidth: "400px", maxHeight: "400px"}} />}
         {prediction && <>
           <p style={{fontSize:"2em", "padding": "0.4em", "margin": "0em", color:"white", "backgroundColor": "brown", "textAlign": "center"}}>It's a <b>{prediction.prediction}</b></p>
 

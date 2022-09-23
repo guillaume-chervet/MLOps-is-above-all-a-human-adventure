@@ -11,3 +11,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+button{
+  font-size: 1.6em;
+  padding: 0.1em;
+  margin: 0.1em;
+}
+
+input{
+   font-size: 1.6em;
+  padding: 0.1em;
+  margin: 0.1em;
+}
+
+
+select{
+   font-size: 1.6em;
+  padding: 0.1em;
+  margin: 0.1em;
+}
+
+label{
+font-size: 1.6em;
+  padding: 0.1em;
+  margin: 0.1em;
+}
+
+p{
+  font-size: 1.6em;
+  padding: 0.1em;
+  margin: 0.1em;
+}
+
+body{
+  text-align: center;
+}
