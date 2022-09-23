@@ -6,21 +6,26 @@ import "./App.css";
 
 function App() {
   const [file, setFile] = useState(null);
+  const [type, setType] = useState(null);
   const [url, setUrl] = useState(null);
   const [prediction, setPrediction] = useState(null);
   const [feedback, setFeedback] = useState(null);
 
   const UPLOAD_ENDPOINT =
-    "http://localhost:8064/upload";
+    "http://localhost:8064/upload-integration";
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-
-  };
 
   const uploadFile = async file => {
     const formData = new FormData();
     formData.append("file", file);
+
+    const str = JSON.stringify({version:"1.0.0", "type":"opencv", "youhou":"qsdqsdqsdqsd"});
+    const bytes = new TextEncoder().encode(str);
+    const blob = new Blob([bytes], {
+      type: "application/json;charset=utf-8"
+    });
+    formData.append("settings", blob);
+
 
     return await axios.post(UPLOAD_ENDPOINT, formData, {
       headers: {
@@ -44,11 +49,19 @@ function App() {
     setFeedback(true);
   };
 
+  const handleType = e => {
+    setType(e.target.value);
+  }
+
   return (
       <>
-    <form onSubmit={handleSubmit}>
+    <form>
       <h1>Production environement</h1>
       <input type="file" onChange={handleOnChange} />
+      <select  value={type} onChange={handleType} >
+        <option value="pillow">Pillow</option>
+        <option value="opencv">Opencv</option>
+      </select>
     </form>
 
     { url && <img src={url} alt={"selected image"}  style={{maxWidth: "260px", maxHeight: "260px"}} />}
