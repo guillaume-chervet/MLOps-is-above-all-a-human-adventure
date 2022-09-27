@@ -76,8 +76,8 @@ def load_image_cv180(filename):
 
 # load an image and predict the class
 def run_example():
-	makedirs("cat", exist_ok=True)
-	makedirs("dog", exist_ok=True)
+	makedirs("fails/cat", exist_ok=True)
+	makedirs("fails/dog", exist_ok=True)
 	makedirs("dog_cv", exist_ok=True)
 	makedirs("cat_cv", exist_ok=True)
 	flist = [p for p in Path("dogs-vs-cats/test").iterdir() if p.is_file()]
