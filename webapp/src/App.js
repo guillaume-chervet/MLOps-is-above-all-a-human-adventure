@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 import "./App.css";
 
@@ -26,12 +25,14 @@ function App() {
     });
     formData.append("settings", blob);
 
-
-    return await axios.post(UPLOAD_ENDPOINT, formData, {
-      headers: {
-        "content-type": "multipart/form-data"
-      }
+    const response = fetch(UPLOAD_ENDPOINT, {
+      method: 'POST',
+      body:formData,
+      mode: 'cors'
     });
+    const o = await response;
+    const u = await o.json();
+    return u;
   };
 
   const handleOnChange = async e => {
@@ -42,7 +43,7 @@ function App() {
     setPrediction(null);
     setFeedback(null);
     let res = await uploadFile(file);
-    setPrediction(res.data)
+    setPrediction(res)
   };
 
   const handleFeedback = e => {
@@ -60,7 +61,7 @@ function App() {
   return (
       <>
     <form>
-      <h1>Production environement</h1>
+      <h1>Production environment</h1>
       <input type="file" onChange={handleOnChange} />
       <select  value={type} onChange={handleType} >
         <option value="pillow">Pillow</option>
@@ -73,7 +74,7 @@ function App() {
           <p style={{fontSize:"2em", "padding": "0.4em", "margin": "0em", color:"white", "backgroundColor": "brown", "textAlign": "center"}}>It's a <b>{prediction.prediction}</b></p>
 
 
-          { feedback === true ? <p>Thank you!</p>  : <> <label>Are you agree with that result ?</label>
+          { feedback === true ? <p>Thank you!</p>  : <> <label>Do you agree with that result ?</label>
         <button onClick={handleFeedback} type="button">Yes</button><button  onClick={handleFeedback} type="button">No</button>
           </>}
         </>

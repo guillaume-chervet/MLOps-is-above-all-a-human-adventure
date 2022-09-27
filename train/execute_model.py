@@ -90,15 +90,15 @@ def run_example():
 		# load the image
 
 		# predict the class
-		result_pillow = model.predict(load_image_cv180(str(file_path)))
+		result_pillow = model.predict(load_image(str(file_path)))
 		result_cv = model.predict(load_image_cv(str(file_path)))
 		if int(result_pillow[0]) != int(result_cv[0]):
-			diff.append(str(file_path))
+			#diff.append(str(file_path))
 			#print("Difference dectected in :" + str(file_path))
-			#if result_pillow[0]==1:
-			#	copyfile(file_path,  "./dog/" + Path(file_path).stem + Path(file_path).suffix)
-			#else:
-			#	copyfile(file_path,  "./cat/" + Path(file_path).stem + Path(file_path).suffix)
+			if result_pillow[0]==1:
+				copyfile(file_path,  "./dog/" + Path(file_path).stem + Path(file_path).suffix)
+			else:
+				copyfile(file_path,  "./cat/" + Path(file_path).stem + Path(file_path).suffix)
 		#if result_cv[0]==1:
 		#	copyfile(file_path,  "./dog_cv/" + Path(file_path).stem + Path(file_path).suffix)
 		#else:
