@@ -41,7 +41,7 @@ jobs:
           source "${{ github.workspace }}/infra/sdk_helpers.sh";
           source "${{ github.workspace }}/infra/init_environment.sh";
           bash setup.sh
-      working-directory: cli
+      working-directory: train
       continue-on-error: true
     - name: run job
       run: |
