@@ -47,5 +47,5 @@ jobs:
       run: |
           source "${{ github.workspace }}/infra/sdk_helpers.sh";
           source "${{ github.workspace }}/infra/init_environment.sh";
-          bash -x run-job.sh pipeline.yml
+          bash -x ../run-job.sh pipeline.yml
       working-directory: train/nyc-taxi
