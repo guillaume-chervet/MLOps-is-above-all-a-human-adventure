@@ -70,6 +70,7 @@ jobs:
           #bash "${{ github.workspace }}/infra/sdk_helpers.sh" replace_template_values "pipeline_with_python_function_components.ipynb";
           #[ -f "../../.azureml/config" ] && cat "../../.azureml/config";
           #papermill -k python pipeline_with_python_function_components.ipynb pipeline_with_python_function_components.output.ipynb
+          pip install azure-ai-ml
           python run_pipeline.py
       working-directory: train/1b_pipeline_with_python_function_components
     - name: upload notebook's working folder as an artifact
