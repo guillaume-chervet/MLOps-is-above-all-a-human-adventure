@@ -55,21 +55,17 @@ jobs:
           bash setup.sh
       working-directory: sdk/python
       continue-on-error: true
-    - name: setup-cli
-      run: |
-          source "${{ github.workspace }}/infra/sdk_helpers.sh";
-          source "${{ github.workspace }}/infra/init_environment.sh";
-          bash setup.sh
-      working-directory: cli
-      continue-on-error: true
+    #- name: setup-cli
+    #  run: |
+    #      source "${{ github.workspace }}/infra/sdk_helpers.sh";
+    #      source "${{ github.workspace }}/infra/init_environment.sh";
+    #      bash setup.sh
+    #  working-directory: cli
+    #  continue-on-error: true
     - name: run train/1b_pipeline_with_python_function_components/run_pipeline.py
       run: |
           source "${{ github.workspace }}/infra/sdk_helpers.sh";
           source "${{ github.workspace }}/infra/init_environment.sh";
-          #bash "${{ github.workspace }}/infra/sdk_helpers.sh" generate_workspace_config "../../.azureml/config.json";
-          #bash "${{ github.workspace }}/infra/sdk_helpers.sh" replace_template_values "pipeline_with_python_function_components.ipynb";
-          #[ -f "../../.azureml/config" ] && cat "../../.azureml/config";
-          #papermill -k python pipeline_with_python_function_components.ipynb pipeline_with_python_function_components.output.ipynb
           pip install azure-ai-ml azure.identity mldesigner
           python run_pipeline.py
       working-directory: train/1b_pipeline_with_python_function_components
