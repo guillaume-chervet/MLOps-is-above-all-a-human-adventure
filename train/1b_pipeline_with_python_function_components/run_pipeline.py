@@ -78,6 +78,5 @@ pipeline_job = ml_client.jobs.create_or_update(
     pipeline_job, experiment_name="pipeline_samples"
 )
 
-pipeline_job = ml_client.jobs.create_or_update(
-    pipeline_job, experiment_name="pipeline_samples"
-)
+# Wait until the job completes
+ml_client.jobs.stream(pipeline_job.name)
