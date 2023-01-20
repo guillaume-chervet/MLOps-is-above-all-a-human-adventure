@@ -28,8 +28,6 @@ print(ml_client.compute.get(cluster_name))
 
 from src.components import train_model, score_data, eval_model
 
-
-cluster_name = "cpu-cluster"
 custom_path = "azureml://datastores/workspaceblobstore/paths/custom_path/${{name}}/"
 
 # define a pipeline with component
