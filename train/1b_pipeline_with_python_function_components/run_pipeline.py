@@ -22,7 +22,7 @@ ml_client = MLClient(
 )
 
 # Retrieve an already attached Azure Machine Learning Compute.
-cluster_name = "cpu-cluster"
+cluster_name = "guillaume-cpu"
 print(ml_client.compute.get(cluster_name))
 
 
