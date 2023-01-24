@@ -1,3 +1,4 @@
+import numpy as np
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from keras.models import load_model
 from pathlib import Path
@@ -27,7 +28,8 @@ class Model:
 			stream.write(file.getbuffer())
 		img = load_image(filename)
 		result = self.model.predict(img)
-		if result[0] == 1:
-			return {"prediction": "Dog", "confidence": 1}
-		else:
-			return {"prediction": "Cat", "confidence": 1}
+		values = [float(result[0][0]),float(result[0][1]),float(result[0][2])]
+		print("prediction_values")
+		switcher = ['Cat', 'Dog', 'Other']
+		prediction = np.argmax(result[0])
+		return {"prediction": switcher[prediction], "values": values}

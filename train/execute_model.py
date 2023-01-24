@@ -82,7 +82,7 @@ def run_example():
 	makedirs("cat_cv", exist_ok=True)
 	flist = [p for p in Path("dogs-vs-cats/test").iterdir() if p.is_file()]
 	# load model
-	model = load_model('../prod/production/model/final_model.h5')
+	model = load_model('../prod/production/model/final_model_old.h5')
 	diff = []
 	for file_path in flist:
 

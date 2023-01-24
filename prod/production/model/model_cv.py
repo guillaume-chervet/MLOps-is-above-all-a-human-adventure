@@ -33,8 +33,8 @@ class Model:
 		img = load_image(file)
 		# predict the class
 		result = self.model.predict(img)
-		print(result)
-		if result[0] == 1:
-			return {"prediction": "Dog", "confidence": 1}
-		else:
-			return {"prediction": "Cat", "confidence": 1}
+		values = [float(result[0][0]),float(result[0][1]),float(result[0][2])]
+		print("prediction_values")
+		switcher = ['Cat', 'Dog', 'Other']
+		prediction = np.argmax(result[0])
+		return {"prediction": switcher[prediction], "values": values}
