@@ -26,6 +26,10 @@ WORKDIR ${APP_ROOT}/core
 #RUN coverage report
 WORKDIR ${APP_ROOT}
 
+#ENTRYPOINT ["python3 index.py"]
+RUN echo "python3 index.py" > entrypoint.sh
+RUN chmod +x entrypoint.sh
+CMD ./entrypoint.sh
 ENV fprocess="python3 index.py"
 ENV cgi_headers="true"
 ENV mode="http"

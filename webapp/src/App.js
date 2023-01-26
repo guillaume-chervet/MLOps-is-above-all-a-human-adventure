@@ -37,6 +37,7 @@ function App() {
 
   const handleOnChange = async e => {
     const file = e.target.files[0];
+    e.target.value = null;
     setFile(file);
     const objectURL = URL.createObjectURL(file);
     setUrl(objectURL);
@@ -60,9 +61,9 @@ function App() {
 
   return (
       <>
-    <form>
+    <form >
       <h1>Production environment</h1>
-      <input type="file" onChange={handleOnChange} />
+      <input type="file" onChange={handleOnChange}  />
       <select  value={type} onChange={handleType} >
         <option value="pillow">Pillow</option>
         <option value="opencv">Opencv</option>

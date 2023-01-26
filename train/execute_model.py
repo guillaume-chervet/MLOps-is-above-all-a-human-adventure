@@ -16,7 +16,7 @@ def load_image(filename):
 	# convert to array
 	img = img_to_array(img)
 	end = time.time()
-	print("pillow time: " + str(end - start))
+	#print("pillow time: " + str(end - start))
 	# reshape into a single sample with 3 channels
 	img = img.reshape(1, 224, 224, 3)
 	# center pixel data
@@ -34,7 +34,7 @@ def load_image_cv(filename):
 	# maybe insert float convertion here - see edit remark!
 	np_final = np.expand_dims(np_image_data, axis=0)
 	end = time.time()
-	print("cv time: " + str(end - start))
+	#print("cv time: " + str(end - start))
 
 	# reshape into a single sample with 3 channels
 	img = np_final.reshape(1, 224, 224, 3)
@@ -65,7 +65,7 @@ def load_image_cv180(filename):
 	# maybe insert float convertion here - see edit remark!
 	np_final = np.expand_dims(np_image_data, axis=0)
 	end = time.time()
-	print("cv time: " + str(end - start))
+	#print("cv time: " + str(end - start))
 
 	# reshape into a single sample with 3 channels
 	img = np_final.reshape(1, 224, 224, 3)
@@ -78,11 +78,13 @@ def load_image_cv180(filename):
 def run_example():
 	makedirs("fails/cat", exist_ok=True)
 	makedirs("fails/dog", exist_ok=True)
+	makedirs("fails/other", exist_ok=True)
 	makedirs("dog_cv", exist_ok=True)
 	makedirs("cat_cv", exist_ok=True)
+	makedirs("other_cv", exist_ok=True)
 	flist = [p for p in Path("dogs-vs-cats/test").iterdir() if p.is_file()]
 	# load model
-	model = load_model('../prod/production/model/final_model_old.h5')
+	model = load_model('./final_model.h5')
 	diff = []
 	for file_path in flist:
 
@@ -92,17 +94,11 @@ def run_example():
 		# predict the class
 		result_pillow = model.predict(load_image(str(file_path)))
 		result_cv = model.predict(load_image_cv(str(file_path)))
-		if int(result_pillow[0]) != int(result_cv[0]):
-			#diff.append(str(file_path))
-			#print("Difference dectected in :" + str(file_path))
-			if result_pillow[0]==1:
-				copyfile(file_path,  "./dog/" + Path(file_path).stem + Path(file_path).suffix)
-			else:
-				copyfile(file_path,  "./cat/" + Path(file_path).stem + Path(file_path).suffix)
-		#if result_cv[0]==1:
-		#	copyfile(file_path,  "./dog_cv/" + Path(file_path).stem + Path(file_path).suffix)
-		#else:
-		#	copyfile(file_path,  "./cat_cv/" + Path(file_path).stem + Path(file_path).suffix)
+		switcher = ['Cat', 'Dog', 'Other']
+		prediction_pillow = np.argmax(result_pillow[0])
+		prediction_cv = np.argmax(result_cv[0])
+		if prediction_cv != prediction_pillow:
+			copyfile(file_path,  "./fails2/" + Path(file_path).stem + "_cv2-"+switcher[prediction_cv] + "_pillow-" + switcher[prediction_pillow] + Path(file_path).suffix)
 
 
 	import json

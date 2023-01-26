@@ -4,6 +4,5 @@ dataset_dogs_vs_cats
 dogs-vs-cats
 sample_image.jpg
 
-docker-compose.yaml
 .idea
 /train/.ipynb_checkpoints/
