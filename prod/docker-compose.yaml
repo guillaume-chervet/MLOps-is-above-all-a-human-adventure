@@ -1,0 +1,66 @@
+version: '3.7'
+
+services:
+ # redis:
+ #   image: dvaew1afahubacr02.azurecr.io/externals/data/redislabs/rejson:1.0.8
+ #   ports:
+ #     - 6379:6379
+ # jaeger-collector:
+ #   image: jaegertracing/all-in-one:latest
+ #   ports:
+ #     - "5775:5775/udp"
+ #     - "6831:6831/udp"
+ #     - "6832:6832/udp"
+ #     - "5778:5778"
+ #     - "16686:16686"
+ #     - "14268:14268"
+ #     - "14250:14250"
+ #     - "9411:9411"
+  base-function:
+    build:
+      context: ./base_function
+      dockerfile: ./Dockerfile
+      args:
+        baseImage: axaguildev/build-ubi8-python3.8:pr-1
+    image: toto/base-function:local
+
+  catanddog:
+    build:
+      context: ./production
+      dockerfile: ./Dockerfile
+      args:
+        buildImage: base-function:local
+        runtimeImage: axaguildev/build-ubi8-python3.8:pr-1
+    image: toto/catdog:local
+    restart: "no"
+    user: "1001001"
+    ports:
+      - 8064:5000
+      #- 8064:8080
+    depends_on:
+      - base-function
+     # - redis
+     # - jaeger-collector
+    environment:
+      - http_timeout=300
+      - url_gateway=http://{function_name}:8080
+      - client_url_file=http://localhost:5011/{id}
+      - api_debug_file=true
+      - redis_host=redis
+      - redis_port=6379
+      - redis_expire_time=120
+      - combine_output=false
+      - read_timeout=200s
+      - write_timeout=200s
+      - upstream_timeout=200s
+      - exec_timeout=200s
+      - write_debug=true
+      - read_debug=true
+      - log_level=DEBUG
+      - oidc_enabled=false
+      - USE_DYNATRACE_COLLECTOR=false
+      - EXPORTER_DYNATRACE_ENDPOINT=https://dynatraces/api/v2/otlp/v1/traces
+      - EXPORTER_DYNATRACE_TOKEN="dynatrace_token"
+      - OTEL_PYTHON_FASTAPI_EXCLUDED_URLS=version,health,metrics,docs*
+      - EXPORTER_JAEGER_ENDPOINT=http://jaeger-collector:14268/api/traces?format=jaeger.thrift
+      - PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
